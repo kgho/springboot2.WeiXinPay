@@ -1,7 +1,11 @@
 package net.xdclass.xdvideo.domain;
 
+import java.io.Serializable;
 
-public class VideoOrder {
+/**
+ *  订单表
+ */
+public class VideoOrder implements Serializable {
 
   private Integer id;
   private String openid;

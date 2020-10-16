@@ -1,7 +1,11 @@
 package net.xdclass.xdvideo.domain;
 
 
-public class User {
+import java.io.Serializable;
+/**
+ *  用户实体类表
+ */
+public class User implements Serializable {
 
   private Integer id;
   private String openid;

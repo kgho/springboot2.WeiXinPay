@@ -1,7 +1,11 @@
 package net.xdclass.xdvideo.domain;
 
 
-public class Video {
+import java.io.Serializable;
+/**
+ *  视频表
+ */
+public class Video implements Serializable {
 
   private Integer id;
   private String title;

@@ -1,7 +1,11 @@
 package net.xdclass.xdvideo.domain;
 
 
-public class Comment {
+import java.io.Serializable;
+/**
+ *  评论实体类
+ */
+public class Comment implements Serializable {
 
   private Integer id;
   private String content;
