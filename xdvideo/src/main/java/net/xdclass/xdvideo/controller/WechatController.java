@@ -2,6 +2,7 @@ package net.xdclass.xdvideo.controller;
 
 import net.xdclass.xdvideo.config.WeChatConfig;
 import net.xdclass.xdvideo.domain.JsonData;
+import net.xdclass.xdvideo.domain.User;
 import net.xdclass.xdvideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,7 +50,14 @@ public class WechatController {
 
         //System.out.println("code="+code);
         //System.out.println("state="+state);
-        userService.saveWeChatUser(code);
+        //userService.saveWeChatUser(code);
+
+        //  UserServiceImpl 打印用户信息,扫码登录成功后，跳转到这
+        User user = userService.saveWeChatUser(code);
+        if(user != null){
+            //生成jwt
+
+        }
     }
 
 }
