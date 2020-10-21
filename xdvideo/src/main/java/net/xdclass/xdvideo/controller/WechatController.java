@@ -2,6 +2,7 @@ package net.xdclass.xdvideo.controller;
 
 import net.xdclass.xdvideo.config.WeChatConfig;
 import net.xdclass.xdvideo.domain.JsonData;
+import net.xdclass.xdvideo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -18,6 +20,9 @@ public class WechatController {
 
     @Autowired
     private WeChatConfig weChatConfig;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 拼装微信扫一扫登录url
@@ -36,6 +41,15 @@ public class WechatController {
         String qrcodeUrl = String.format(weChatConfig.getOpenQrcodeUrl(),weChatConfig.getOpenAppid(),callbackUrl,accessPage);
 
         return JsonData.buildSuccess(qrcodeUrl);
+    }
+
+    @GetMapping("/user/callback")
+    public void wechatUserCallback(@RequestParam(value = "code",required = true) String code,
+                                   String state, HttpServletResponse response){
+
+        //System.out.println("code="+code);
+        //System.out.println("state="+state);
+        userService.saveWeChatUser(code);
     }
 
 }
