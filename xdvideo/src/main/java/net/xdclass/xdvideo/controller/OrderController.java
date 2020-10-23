@@ -26,7 +26,7 @@ public class OrderController {
 
     @GetMapping("add")
     public JsonData saveOrder(@RequestParam(value = "video_id",required = true)int videoId,
-                              HttpServletRequest request){
+                              HttpServletRequest request) throws Exception {
 
         String ip = IpUtils.getIpAddr(request);
         //int userId = request.getAttribute("user_id");
