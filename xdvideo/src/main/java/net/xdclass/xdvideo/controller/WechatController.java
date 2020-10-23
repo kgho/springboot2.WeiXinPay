@@ -5,6 +5,7 @@ import net.xdclass.xdvideo.domain.JsonData;
 import net.xdclass.xdvideo.domain.User;
 import net.xdclass.xdvideo.service.UserService;
 import net.xdclass.xdvideo.utils.JwtUtils;
+import net.xdclass.xdvideo.utils.WXPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api/v1/wechat")
@@ -70,6 +72,30 @@ public class WechatController {
 
             response.sendRedirect(state+"?token="+token+"&head_img="+user.getHeadImg()+"&name="+URLEncoder.encode(user.getName(),"UTF-8"));
         }
+    }
+
+
+    /**
+     * 微信支付回调
+     */
+    @RequestMapping("/order/callback")
+    public void orderCallback(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        InputStream inputStream =  request.getInputStream();
+
+        //BufferedReader是包装设计模式，性能更搞
+        BufferedReader in =  new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
+        StringBuffer sb = new StringBuffer();
+        String line ;
+        while ((line = in.readLine()) != null){
+            sb.append(line);
+        }
+        in.close();
+        inputStream.close();
+        Map<String,String> callbackMap = WXPayUtil.xmlToMap(sb.toString());
+        System.out.println(callbackMap.toString());
+
+
     }
 
 }
