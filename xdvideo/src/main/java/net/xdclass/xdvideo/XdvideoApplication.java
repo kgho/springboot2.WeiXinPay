@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @MapperScan("net.xdclass.xdvideo.mapper")
 @SpringBootApplication
+//开启事务管理
 public class XdvideoApplication {
 
 	public static void main(String[] args) {
