@@ -1,6 +1,5 @@
 package net.xdclass.xdvideo.service;
 
-import net.xdclass.xdvideo.domain.VideoOrder;
 import net.xdclass.xdvideo.dto.VideoOrderDto;
 
 /**
@@ -13,6 +12,6 @@ public interface VideoOrderService {
      * @param videoOrderDto
      * @return
      */
-    VideoOrder save(VideoOrderDto videoOrderDto) throws Exception;
+    String save(VideoOrderDto videoOrderDto) throws Exception;
 
 }
