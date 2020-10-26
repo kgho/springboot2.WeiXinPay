@@ -12,6 +12,8 @@ import net.xdclass.xdvideo.service.VideoOrderService;
 import net.xdclass.xdvideo.utils.CommonUtils;
 import net.xdclass.xdvideo.utils.HttpUtils;
 import net.xdclass.xdvideo.utils.WXPayUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +26,10 @@ import java.util.TreeMap;
 
 @Service
 public class VideoOrderServiceImpl implements VideoOrderService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    private Logger dataLogger = LoggerFactory.getLogger("dataLogger");
 
     @Autowired
     private WeChatConfig weChatConfig;
@@ -40,6 +46,9 @@ public class VideoOrderServiceImpl implements VideoOrderService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public String save(VideoOrderDto videoOrderDto) throws Exception {
+
+        dataLogger.info("module=video_order`api=save`user_id={}`video_id={}",videoOrderDto.getUserId(),videoOrderDto.getVideoId());
+
         //查找视频信息
         Video video = videoMapper.findById(videoOrderDto.getVideoId());
 
